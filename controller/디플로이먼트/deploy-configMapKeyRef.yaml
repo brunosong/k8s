@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploy-configmapkey
+  name: deploy-configmapkey
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: deploy-configmapkey
+  template:
+    metadata:
+      labels:
+        app: deploy-configmapkey
+    spec:
+      containers:
+      - name: sleepy
+        image: sysnet4admin/sleepy
+        command: ["/bin/sh","-c"]
+        args:
+        - |
+          echo "sleepy $APP_STATUS"
+          sleep 3600
+        env:
+        - name: APP_STATUS
+          valueFrom:
+            configMapKeyRef:
+              name: sleepy-config
+              key: STATUS

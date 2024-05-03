@@ -1,0 +1,11 @@
+apiVersion: v1
+kind : Pod
+metadata:
+  name: request-pod
+  labels:
+    svc: clusterip
+    out: ok
+spec:
+  containers:
+  - name: container
+    image: kubetm/init

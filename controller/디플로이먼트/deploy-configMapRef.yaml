@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: deploy-configmap
+  name: deploy-configmap
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: deploy-configmap
+  template:
+    metadata:
+      labels:
+        app: deploy-configmap
+    spec:
+      containers:
+      - name: sleepy
+        image: sysnet4admin/sleepy
+        command: ["/bin/sh","-c"]
+        args:
+        - |
+          echo "sleepy $STATUS"
+          echo "NOTE : $NOTE"
+          sleep 3600
+        envFrom:
+        - configMapRef:
+            name: sleepy-config

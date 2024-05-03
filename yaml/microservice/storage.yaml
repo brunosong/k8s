@@ -1,0 +1,32 @@
+# PVC는 개발자 관점이다 ( "특정 컨테이너에 무엇이 필요한가" 를 묻는 것이다. )
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+
+spec:
+  # 어떤 저장소 종류를 원하는지 입력
+  storageClassName: mylocalstorage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+
+---
+
+# PV는 관리자 관리 시점이다. 권한설정을 해야하는 물리적 저장소
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-storage
+spec:
+  storageClassName: mylocalstorage
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/some new/directory/structure/"
+    type: DirectoryOrCreate
+

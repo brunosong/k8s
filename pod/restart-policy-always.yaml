@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod-always
+  name: pod-always
+spec:
+  containers:
+    - name: net-tools
+      image: sysnet4admin/net-tools
+      command: ["/bin/sh", "-c"]
+      args:
+      - nslookup kubernetes
+  restartPolicy: Always

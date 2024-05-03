@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: net
+spec:
+  containers:
+    - name: container
+      image: sysnet4admin/net
+      command: [ "/usr/bin/curl","-XGET", "http://host.docker.internal:9999/metrics/job/lms-api/instance/${HOSTNAME}"]

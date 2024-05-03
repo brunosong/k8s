@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: pod-never
+  name: pod-never
+spec:
+  containers:
+    - name: net-tools
+      image: sysnet4admin/net-tools
+      command: ["/bin/sh", "-c"]
+      args:
+      - nslookup kubernetes
+  restartPolicy: Never
